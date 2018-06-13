@@ -16,19 +16,22 @@
  * Write your model definitions here
  */
 
-namespace org.acme.airline.flight
+namespace org.acme.airline.aircraft
 
-import org.acme.airline.aircraft.Aircraft
+asset Aircraft identified by aircraftId {
+  o String aircraftId
 
-asset Flight identified by flightNumber {
-  o String flightNumber
-  o Route route
-  o String[] aliasFlightNumber
-  --> Aircraft aircraft
+  o Ownership ownership default="LEASED"
+  
+  // Number of seats per class
+  o Integer firstClassSeats range = [4,]
+  o Integer businessClassSeats range = [4,20]
+  o Integer economyClassSeats range = [30,]
+
+  o String nickName optional
 }
 
-concept Route {
-  o String origin
-  o String destination
-  o DateTime schedule
+enum Ownership {
+  o LEASED
+  o OWNED
 }
