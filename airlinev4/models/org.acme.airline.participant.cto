@@ -12,17 +12,29 @@
  * limitations under the License.
  */
 
-'use strict';
+/**
+ * Write your model definitions here
+ */
+ 
+namespace org.acme.airline.participant
 
-const composerSteps = require('composer-cucumber-steps');
-const cucumber = require('cucumber');
+abstract participant ACMEParticipant identified by participantKey {
+  o String participantKey
+  o Contact contact
+}
 
-module.exports = function () {
-    composerSteps.call(this);
-};
+concept Contact {
+  o String fName
+  o String lName
+  o String email
+}
 
-if (cucumber.defineSupportCode) {
-    cucumber.defineSupportCode((context) => {
-        module.exports.call(context);
-    });
+participant ACMENetworkAdmin extends ACMEParticipant {
+}
+
+participant ACMEPersonnel extends ACMEParticipant {
+  o String department
+}
+
+participant B2BPartner extends ACMEParticipant {
 }

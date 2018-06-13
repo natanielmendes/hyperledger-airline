@@ -1,3 +1,0 @@
-# aircraft-network
-
-Aircraft Netowork

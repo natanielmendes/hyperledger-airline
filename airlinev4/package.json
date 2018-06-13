@@ -4,7 +4,7 @@
   },
   "name": "aircraft-network",
   "version": "0.0.1",
-  "description": "Aircraft Netowork",
+  "description": "Aircraft Network",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/aircraft-network.bna",
     "pretest": "npm run lint",

@@ -16,25 +16,19 @@
  * Write your model definitions here
  */
 
-namespace org.acme.airline.participant
+namespace org.acme.airline.flight
 
-abstract participant ACMEParticipant identified by participantKey {
-  o String participantKey
-  o Contact contact
+import org.acme.airline.aircraft.Aircraft
+
+asset Flight identified by flightNumber {
+  o String flightNumber
+  o Route route
+  o String[] aliasFlightNumber
+  --> Aircraft aircraft
 }
 
-concept Contact {
-  o String fName
-  o String lName
-  o String email
-}
-
-participant ACMENetworkAdmin extends ACMEParticipant {
-}
-
-participant ACMEPersonnel extends ACMEParticipant {
-  o String department
-}
-
-participant B2BPartner extends ACMEParticipant {
+concept Route {
+  o String origin
+  o String destination
+  o DateTime schedule
 }
