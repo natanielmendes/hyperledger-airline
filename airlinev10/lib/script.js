@@ -6,38 +6,55 @@
  * @transaction
  */
 function createFlight(flightData) {
-    // 1. Get the asset registry
-    return getAssetRegistry('org.acme.airline.flight.Flight')
-        .then(function(flightRegistry){
-            // Now add the Flight
 
-            // 2. Get resource factory
+    /**
+     * 1. Validate the schedule data
+     * If the date is a past date then throw an error
+     */
+    var timeNow = new Date().getTime();
+    var schedTime = new Date(flightData.schedule).getTime();
+    if(schedTime < timeNow){
+        throw new Error("Scheduled time cannot be in the past!!!");
+    }
+
+    // Get the Asset Registry
+
+    return getAssetRegistry('org.acme.airline.flight.Flight')
+    
+        .then(function(flightRegistry){
+            // Now add the Flight - global function getFactory() called
             var  factory = getFactory();
+
             var  NS =  'org.acme.airline.flight';
 
-            // 3. Create the Resource instance
-            var flightId = generateFlightId(flightData.flightNumber, flightData.schedule)
-            
+            // Solution to exercise - Removed hardcoded value & invoked
+            // generate the flight ID
+            // 2.1 Set the flightNumber, flightId ... 
+            var  flightId = generateFlightId(flightData.flightNumber,flightData.schedule);
             var  flight = factory.newResource(NS,'Flight',flightId);
-            
-            // 4. Set the relationship
             flight.flightNumber = flightData.flightNumber;
+            flight.aliasFlightNumber = [];
 
-            // 5. Create a new concept using the factory & set the data in it
+            // Flight asset has an instance of the concept
+            // 2.2 Use the factory to create an instance of concept
             var route = factory.newConcept(NS,"Route");
 
+            // 2.3 Set the data in the concept 'route'
             route.origin = flightData.origin;
             route.destination = flightData.destination;
             route.schedule = flightData.schedule;
-            flight.route = route;
-            flight.aliasFlightNumber = [];
 
-            // 6. Emit the event FlightCreated
+            // 2.4 Set the route attribute on the asset
+            flight.route = route;
+            
+
+            // 3 Emit the event FlightCreated
             var event = factory.newEvent(NS, 'FlightCreated');
             event.flightId = flightId;
             emit(event);
 
-            return flightRegistry.addAll([flight]);
+            // 4. Add to registry
+            return flightRegistry.add(flight);
         });
 }
 
