@@ -8,3 +8,4 @@ npm-debug*
 *.key
 *_sk
 *.pem
+package-lock.json
