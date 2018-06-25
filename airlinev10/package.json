@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "composer": "^0.19.6"
+  },
   "name": "airlinev10",
   "version": "0.0.1",
   "description": "Airline Network v10",
