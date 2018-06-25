@@ -37,12 +37,22 @@ rule AcmeParticipantPermissionHistorian {
 // #3.2 Needed for Creating the "CreateFlight" transaction
 // Only employees @ ACME can execute this transaction
 
+// rule ACMEPersonnelPermission {
+//   description: "only ACME personnel can create a flight"
+//   participant: "org.acme.airline.participant.ACMEPersonnel"
+//   operation: CREATE
+//   resource: "org.acme.airline.flight.*"
+//   transaction: "org.acme.airline.flight.CreateFlight"
+//   action: ALLOW
+// }
+
 rule ACMEPersonnelPermission {
-  description: "only ACME personnel can create a flight"
-  participant: "org.acme.airline.participant.ACMEPersonnel"
+  description: "only ACME personnel from logistics department can create a flight"
+  participant(p): "org.acme.airline.participant.ACMEPersonnel"
   operation: CREATE
-  resource: "org.acme.airline.flight.*"
+  resource(r): "org.acme.airline.flight.*"
   transaction: "org.acme.airline.flight.CreateFlight"
+  condition: (p.department == "Logistics")
   action: ALLOW
 }
 
@@ -50,6 +60,6 @@ rule ACMEPersonnelPermissionToReadFlights {
   description: "only ACME personnel can READ flights"
   participant: "org.acme.airline.participant.ACMEPersonnel"
   operation: READ
-  resource: "org.acme.airline.flight.Flight"
+  resource: "org.acme.airline.flight.**"
   action: ALLOW
 }
