@@ -28,7 +28,7 @@ composer card import -f admin@airlinev10.card
 composer participant add -d '{"$class":"org.acme.airline.participant.ACMENetworkAdmin","participantKey":"johnd","contact":{"$class":"org.acme.airline.participant.Contact","fName":"John","lName":"Doe","email":"john.doe@acmeairline.com"}}' -c admin@airlinev10
 
 - Will Smith (wills) works in the Logistics department
-composer participant add -d '{"$class":"org.acme.airline.participant.ACMEPersonnel","participantKey":"wills","contact":{"$class":"org.acme.airline.participant.Contact","fName":"Will","lname":"Smith","email":"will.smith@acmeairline.com"}, "department":"Logistics"}' -c admin@airlinev10
+composer participant add -d '{"$class":"org.acme.airline.participant.ACMEPersonnel","participantKey":"wills","contact":{"$class":"org.acme.airline.participant.Contact","fName":"Will","lName":"Smith","email":"will.smith@acmeairline.com"}, "department":"Logistics"}' -c admin@airlinev10
 
 #5 Issue the identities
 composer identity issue -u johnd -a org.acme.airline.participant.ACMENetworkAdmin#johnd -c admin@airlinev10
@@ -38,7 +38,7 @@ composer card import -f johnd@airlinev10.card
 
 composer identity issue -u wills -a org.acme.airline.participant.ACMEPersonnel#wills -c admin@airlinev10 
 
-composer card delete -n wills@airlinev10
+composer card delete -c wills@airlinev10
 composer card import -f wills@airlinev10.card
 
 #6 Ping BNA using the johnd & wills cards

@@ -1,7 +1,7 @@
 {
   "name": "airlinev10",
   "version": "0.0.1",
-  "description": "Airline Network",
+  "description": "Airline Network v10",
   "scripts": {
     "test": "mocha --recursive"
   },
